@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import heroShoes from '@/assets/hero-shoes.jpg';
+import prd1 from '@/assets/prd1.jpg';
+import prd2 from '@/assets/prd2.jpg';
+import prd3 from '@/assets/prd3.jpg';
 import { useCart } from '@/components/cart/CartContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Shop = () => {
   const categories = [
@@ -15,14 +18,25 @@ const Shop = () => {
   ];
 
   const featuredProducts = [
-    { id: 'runner-pro', name: "Zaptoe Runner Pro", price: 2999, rating: "4.9" },
-    { id: 'urban-casual', name: "Urban Casual Elite", price: 2199, rating: "4.8" },
-    { id: 'formal-classic', name: "Formal Classic", price: 3499, rating: "4.7" },
-    { id: 'sport-max', name: "Sport Max", price: 2799, rating: "4.9" },
+    { id: 'runner-pro', name: "Zaptoe Runner Pro", price: 999, rating: "4.9", category: 'male', image: heroShoes },
+    { id: 'urban-casual', name: "Urban Casual Elite", price: 799, rating: "4.8", category: 'female', image: prd1 },
+    { id: 'formal-classic', name: "Formal Classic", price: 899, rating: "4.7", category: 'unisex', image: prd2 },
+    { id: 'sport-max', name: "Sport Max", price: 399, rating: "4.9", category: 'kids', image: prd3 },
+    { id: 'premium-sneaker', name: "Premium Sneaker", price: 699, rating: "4.8", category: 'male', image: prd1 },
+    { id: 'elegant-heels', name: "Elegant Heels", price: 799, rating: "4.6", category: 'female', image: prd2 },
+    { id: 'comfort-walker', name: "Comfort Walker", price: 599, rating: "4.7", category: 'unisex', image: prd3 },
+    { id: 'athletic-pro', name: "Athletic Pro", price: 699, rating: "4.8", category: 'male', image: heroShoes },
   ];
 
   const { addItem, openCart } = useCart();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const selectedCategory = (searchParams.get('category') || '').toLowerCase();
+  const filteredProducts = selectedCategory && ['male','female','unisex','kids'].includes(selectedCategory)
+    ? featuredProducts.filter((p) => p.category === selectedCategory)
+    : featuredProducts;
 
   const handleCategoryClick = (categoryName: string) => {
     navigate(`/shop?category=${categoryName.toLowerCase()}`);
@@ -117,19 +131,19 @@ const Shop = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product, index) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-items-center">
+            {filteredProducts.map((product, index) => (
               <motion.div
                 key={product.name}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-premium transition-smooth group"
+                className="bg-card rounded-2xl overflow-hidden shadow-card hover:shadow-premium transition-smooth group w-full max-w-sm"
               >
                 <div className="aspect-square bg-muted/50 relative">
                   <img 
-                    src={heroShoes} 
+                    src={product.image} 
                     alt={product.name}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                   />
@@ -148,7 +162,7 @@ const Shop = () => {
                     variant="hero" 
                     className="w-full"
                     onClick={() => {
-                      addItem({ id: product.id, name: product.name, price: product.price, imageUrl: heroShoes });
+                      addItem({ id: product.id, name: product.name, price: product.price, imageUrl: product.image });
                       openCart();
                     }}
                   >
@@ -177,7 +191,7 @@ const Shop = () => {
               Contact our team for personalized recommendations or custom orders
             </p>
             <Button variant="secondary" size="lg">
-              Contact Sales Team
+              Contact Team
             </Button>
           </motion.div>
         </div>
