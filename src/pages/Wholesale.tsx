@@ -36,10 +36,10 @@ const Wholesale = () => {
   ];
 
   const pricingTiers = [
-    { range: "50-199 pairs", discount: "15% off", price: "₹1,999-₹2,999" },
-    { range: "200-499 pairs", discount: "25% off", price: "₹1,799-₹2,799" },
-    { range: "500-999 pairs", discount: "35% off", price: "₹1,599-₹2,499" },
-    { range: "1000+ pairs", discount: "45% off", price: "₹1,399-₹2,199" }
+    { range: "50-199 pairs", discount: "15% off", price: "₹339-₹849" },
+    { range: "200-499 pairs", discount: "25% off", price: "₹299-₹749" },
+    { range: "500-999 pairs", discount: "35% off", price: "₹259-₹649" },
+    { range: "1000+ pairs", discount: "45% off", price: "₹219-₹549" }
   ];
 
   const stats = [

@@ -14,6 +14,9 @@ import featuredShoe from '@/assets/featured-shoe.jpg';
 import img2 from '@/assets/img2.jpg';
 import img3 from '@/assets/img3.jpg';
 import img4 from '@/assets/img4.jpg';
+import prd1 from '@/assets/prd1.jpg';
+import prd2 from '@/assets/prd2.jpg';
+import prd3 from '@/assets/prd3.jpg';
 import { useCart } from '@/components/cart/CartContext';
 
 const Home = () => {
@@ -30,8 +33,8 @@ const Home = () => {
     },
     {
       icon: <ShieldCheckIcon className="h-6 w-6" />,
-      title: "Lifetime Warranty",
-      description: "Quality guarantee on all our premium footwear"
+      title: "Affordable",
+      description: "Price range ₹399–₹999"
     }
   ];
 
@@ -45,7 +48,7 @@ const Home = () => {
   const { openCart } = useCart();
 
   // Image animation state
-  const heroImages = [heroShoes, img2, img3]; // Use same 3 images for both sections
+  const heroImages = [heroShoes, img2, img3]; // Use original 3 images for both sections
 
   return (
     <div className="min-h-screen">
@@ -397,7 +400,7 @@ const Home = () => {
                   size="lg"
                   className="bg-white/10 text-white border-white/30 hover:bg-white/20"
                 >
-                  Contact Sales Team
+                  Contact Team
                 </Button>
               </Link>
             </div>
