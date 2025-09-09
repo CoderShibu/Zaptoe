@@ -1,14 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { 
   TrophyIcon,
   GlobeAmericasIcon,
   UsersIcon,
-  HeartIcon 
+  HeartIcon,
+  UserGroupIcon
 } from '@heroicons/react/24/outline';
+import AshrafImage from '@/assets/Ashraf.jpg';
+import FaisalImage from '@/assets/Faisal.jpg';
+import MustakeemImage from '@/assets/Mustakeem.jpg';
+import NeeleshImage from '@/assets/Neelesh.png';
 
 const About = () => {
+  const [activeTab, setActiveTab] = useState('about');
+
+  const tabs = [
+    { id: 'about', label: 'About Us', icon: <UsersIcon className="h-5 w-5" /> },
+    { id: 'team', label: 'Team', icon: <UserGroupIcon className="h-5 w-5" /> }
+  ];
+
   const milestones = [
     { year: '2018', event: 'Founded Zaptoe with a vision for premium footwear' },
     { year: '2019', event: 'Launched our first athletic shoe line' },
@@ -62,7 +75,35 @@ const About = () => {
         </div>
       </section>
 
-      {/* Mission Section - Centered */}
+      {/* Tab Navigation */}
+      <section className="py-8 bg-background border-b">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-center">
+            <div className="flex bg-muted rounded-lg p-1">
+              {tabs.map((tab) => (
+                <Button
+                  key={tab.id}
+                  variant={activeTab === tab.id ? "default" : "ghost"}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`flex items-center gap-2 px-6 py-2 ${
+                    activeTab === tab.id 
+                      ? 'bg-primary text-primary-foreground' 
+                      : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                >
+                  {tab.icon}
+                  {tab.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Tab Content */}
+      {activeTab === 'about' && (
+        <>
+          {/* Mission Section - Centered */}
       <section className="py-20 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
@@ -165,6 +206,126 @@ const About = () => {
           </motion.div>
         </div>
       </section>
+        </>
+      )}
+
+      {activeTab === 'team' && (
+        <>
+          {/* Our Masterminds Section */}
+          <section className="py-20 bg-background">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="text-center mb-16"
+              >
+                <h2 className="text-4xl font-bold text-foreground mb-4">
+                  Our Masterminds
+                </h2>
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Meet the brilliant minds behind Zaptoe's innovation and success
+                </p>
+              </motion.div>
+
+              <div className="grid md:grid-cols-2 gap-8">
+                {/* Ashraf Khan */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                  className="bg-card rounded-xl p-8 shadow-card hover:shadow-premium transition-smooth"
+                >
+                  <div className="w-16 h-16 rounded-xl overflow-hidden mb-6">
+                    <img 
+                      src={AshrafImage} 
+                      alt="Ashraf Khan" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    Ashraf Khan
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    With over a decade of experience in Saudi Arabia and 8+ years in creative design, Ashraf specializes in motion graphics and visual storytelling. Combining a Commerce background with expertise in tools like CorelDRAW, SignLab, and Adobe Illustrator, he crafts impactful content for learning and branding. Passionate about innovation and global engagement, Ashraf brings fresh perspectives through photography and animation.
+                  </p>
+                </motion.div>
+
+                {/* Neelesh Singh */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="bg-card rounded-xl p-8 shadow-card hover:shadow-premium transition-smooth"
+                >
+                  <div className="w-16 h-16 rounded-xl overflow-hidden mb-6">
+                    <img 
+                      src={NeeleshImage} 
+                      alt="Neelesh Singh" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    Neelesh Singh
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Neelesh is a technology risk professional with expertise in third-party risk, data protection, and supplier assurance. He has led global vendor risk assessments across APAC, NAR, and EMEA, ensuring compliance and resilience for complex financial ecosystems. His focus lies in enabling secure operations through strategic risk insights and a commitment to operational excellence.
+                  </p>
+                </motion.div>
+
+                {/* Faisal Khalid */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="bg-card rounded-xl p-8 shadow-card hover:shadow-premium transition-smooth"
+                >
+                  <div className="w-16 h-16 rounded-xl overflow-hidden mb-6">
+                    <img 
+                      src={FaisalImage} 
+                      alt="Faisal Khalid" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    Faisal Khalid
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Based in Lucknow, Faisal brings over a decade of leadership experience in real estate development. As a General Manager, he works closely with developers to drive strategic growth, operational efficiency, and successful project execution. His deep industry knowledge and hands-on approach make him a trusted partner in delivering value-driven solutions across the property landscape.
+                  </p>
+                </motion.div>
+
+                {/* Mustakeem Khan */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="bg-card rounded-xl p-8 shadow-card hover:shadow-premium transition-smooth"
+                >
+                  <div className="w-16 h-16 rounded-xl overflow-hidden mb-6">
+                    <img 
+                      src={MustakeemImage} 
+                      alt="Mustakeem Khan" 
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-4">
+                    Mustakeem Khan
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Mustakeem is a strategic market analyst with deep expertise in business intelligence and high-impact market insights. Known for translating complex data into actionable strategies, he supports informed decision-making and drives growth across sectors. His analytical precision and industry awareness make him a valuable asset in navigating dynamic market landscapes.
+                  </p>
+                </motion.div>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
     </div>
   );
 };

@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -10,6 +11,9 @@ import {
 } from '@heroicons/react/24/outline';
 import heroShoes from '@/assets/hero-shoes.jpg';
 import featuredShoe from '@/assets/featured-shoe.jpg';
+import img2 from '@/assets/img2.jpg';
+import img3 from '@/assets/img3.jpg';
+import img4 from '@/assets/img4.jpg';
 import { useCart } from '@/components/cart/CartContext';
 
 const Home = () => {
@@ -32,13 +36,16 @@ const Home = () => {
   ];
 
   const shoeCategories = [
-    { name: "Athletic", count: "120+ Styles" },
-    { name: "Casual", count: "85+ Styles" },
-    { name: "Formal", count: "60+ Styles" },
-    { name: "Running", count: "95+ Styles" }
+    { name: "Male", count: "150+ Styles", link: "/shop?category=male" },
+    { name: "Female", count: "120+ Styles", link: "/shop?category=female" },
+    { name: "Unisex", count: "80+ Styles", link: "/shop?category=unisex" },
+    { name: "Kids", count: "60+ Styles", link: "/shop?category=kids" }
   ];
 
   const { openCart } = useCart();
+
+  // Image animation state
+  const heroImages = [heroShoes, img2, img3]; // Use same 3 images for both sections
 
   return (
     <div className="min-h-screen">
@@ -93,42 +100,74 @@ const Home = () => {
                     <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="bg-white/10 text-white border-white/30 hover:bg-white/20"
-                  onClick={() => openCart()}
-                >
-                  View Cart
-                </Button>
                 <Link to="/wholesale">
                   <Button 
-                    variant="outline" 
+                    variant="hero" 
                     size="lg"
-                    className="bg-white/10 text-white border-white/30 hover:bg-white/20"
+                    className="group"
                   >
                     Explore Wholesale
+                    <ArrowRightIcon className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
               </motion.div>
             </motion.div>
 
-            {/* Hero Image */}
+            {/* Hero Images - 2 horizontal + 1 vertical */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative"
             >
-              <div className="relative hover-3d">
-                <button onClick={openCart} className="w-full text-left">
-                  <img 
-                    src={heroShoes} 
-                    alt="Premium Zaptoe shoe collection" 
-                    className="w-full h-auto rounded-2xl shadow-premium"
-                  />
-                </button>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
+              <div className="space-y-4">
+                {/* First row - 2 horizontal images */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="grid grid-cols-2 gap-4"
+                >
+                  {heroImages.slice(0, 2).map((image, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 0.6, delay: 0.3 + (index * 0.1) }}
+                      className="relative hover-3d group"
+                    >
+                      <button onClick={openCart} className="w-full text-left">
+                        <div className="relative w-full h-40 sm:h-48 lg:h-52 rounded-2xl shadow-premium overflow-hidden">
+                          <img
+                            src={image}
+                            alt={`Premium Zaptoe shoe collection ${index + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
+                        </div>
+                      </button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* Second row - 1 vertical image */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  className="relative hover-3d group"
+                >
+                  <button onClick={openCart} className="w-full text-left">
+                    <div className="relative w-full h-48 sm:h-56 lg:h-64 rounded-2xl shadow-premium overflow-hidden">
+                      <img
+                        src={heroImages[2]}
+                        alt="Premium Zaptoe shoe collection 3"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
+                    </div>
+                  </button>
+                </motion.div>
               </div>
               
               {/* Floating Badges */}
@@ -136,11 +175,11 @@ const Home = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1, duration: 0.6 }}
-                className="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-card"
+                className="absolute -bottom-6 -left-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-card"
               >
                 <div className="text-center">
                   <div className="text-sm font-semibold text-primary uppercase tracking-wide">Launching With</div>
-                  <div className="text-2xl font-bold text-primary">50+ Premium Styles</div>
+                  <div className="text-xl font-bold text-primary">50+ Premium Styles</div>
                 </div>
               </motion.div>
 
@@ -148,11 +187,11 @@ const Home = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 1.2, duration: 0.6 }}
-                className="absolute -top-6 -right-6 bg-white/95 backdrop-blur-md rounded-2xl p-6 shadow-card"
+                className="absolute -top-6 -right-6 bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-card"
               >
                 <div className="text-center">
                   <div className="text-sm font-semibold text-secondary uppercase tracking-wide">Join Our</div>
-                  <div className="text-2xl font-bold text-secondary">Early Community</div>
+                  <div className="text-xl font-bold text-secondary">Early Community</div>
                 </div>
               </motion.div>
             </motion.div>
@@ -233,7 +272,7 @@ const Home = () => {
                 Explore Our Collection
               </h2>
               <p className="text-xl text-muted-foreground mb-8">
-                From high-performance athletic wear to sophisticated formal footwear, find your perfect match.
+                Discover premium footwear for every member of your family. From stylish men's shoes to elegant women's designs, unisex classics, and adorable kids' styles.
               </p>
               
               <div className="grid grid-cols-2 gap-4 mb-8">
@@ -244,14 +283,17 @@ const Home = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="bg-background rounded-xl p-4 shadow-card hover:shadow-premium transition-smooth cursor-pointer group"
                   >
-                    <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                      {category.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {category.count}
-                    </p>
+                    <Link to={category.link}>
+                      <div className="bg-background rounded-xl p-4 shadow-card hover:shadow-premium transition-smooth cursor-pointer group">
+                        <h3 className="font-semibold text-foreground group-hover:text-primary transition-colors">
+                          {category.name}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {category.count}
+                        </p>
+                      </div>
+                    </Link>
                   </motion.div>
                 ))}
               </div>
@@ -271,15 +313,57 @@ const Home = () => {
               transition={{ duration: 0.8 }}
               className="relative"
             >
-              <div className="relative hover-3d float">
-                <button onClick={openCart} className="w-full text-left">
-                  <img 
-                    src={featuredShoe} 
-                    alt="Featured premium sneaker" 
-                    className="w-full h-auto rounded-2xl shadow-premium"
-                  />
-                </button>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl" />
+              <div className="space-y-4">
+                {/* First row - 2 horizontal images */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="grid grid-cols-2 gap-4"
+                >
+                  {heroImages.slice(0, 2).map((image, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: 0.2 + (index * 0.1) }}
+                      className="relative hover-3d group"
+                    >
+                      <button onClick={openCart} className="w-full text-left">
+                        <div className="relative w-full h-32 sm:h-40 lg:h-44 rounded-2xl shadow-premium overflow-hidden">
+                          <img
+                            src={image}
+                            alt={`Premium Zaptoe shoe collection ${index + 1}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
+                        </div>
+                      </button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* Second row - 1 vertical image */}
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="relative hover-3d group"
+                >
+                  <button onClick={openCart} className="w-full text-left">
+                    <div className="relative w-full h-40 sm:h-48 lg:h-52 rounded-2xl shadow-premium overflow-hidden">
+                      <img
+                        src={heroImages[2]}
+                        alt="Premium Zaptoe shoe collection 3"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-2xl" />
+                    </div>
+                  </button>
+                </motion.div>
               </div>
             </motion.div>
           </div>

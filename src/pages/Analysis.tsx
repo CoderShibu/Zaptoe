@@ -10,55 +10,38 @@ import {
 } from '@heroicons/react/24/outline';
 
 const Analysis = () => {
-  const marketData = [
-    { metric: 'Market Opportunity', value: 'High Growth', trend: 'Scalable demand', color: 'text-primary' },
-    { metric: 'Customer Research', value: 'Strong Interest', trend: 'Positive feedback', color: 'text-secondary' },
-    { metric: 'Growth Potential', value: 'Significant', trend: 'Year 1 adoption', color: 'text-primary' },
-    { metric: 'Global Vision', value: 'Expansion-Ready', trend: 'International markets', color: 'text-secondary' },
+  const initiativeHighlights = [
+    { metric: 'Overview', value: 'New Initiative', trend: 'Launching Now', color: 'text-primary' },
+    { metric: 'Mission', value: 'Deliver Value', trend: 'Customer-first', color: 'text-secondary' },
+    { metric: 'Vision', value: 'Lead the Market', trend: 'Long-term focus', color: 'text-primary' },
+    { metric: 'Premium Quality', value: 'Top-grade', trend: 'No compromises', color: 'text-secondary' },
   ];
 
-  const topProducts = [
-    { name: 'Zaptoe Runner Pro', sales: '2,347', percentage: 85 },
-    { name: 'Urban Casual Elite', sales: '1,893', percentage: 68 },
-    { name: 'Formal Classic', sales: '1,621', percentage: 58 },
-    { name: 'Sport Max', sales: '1,445', percentage: 52 },
-    { name: 'Lifestyle Comfort', sales: '1,289', percentage: 46 },
-  ];
-
-  const insights = [
+  const initiativeSections = [
     {
       icon: <ArrowTrendingUpIcon className="h-6 w-6" />,
-      title: "Sales Growth (Projected)",
-      description: "Anticipated strong adoption in initial launch markets",
-      trend: "Projected"
+      title: 'Overview',
+      description:
+        'Introducing our new initiative focused on innovation, reliability, and a premium customer experience across every touchpoint.'
     },
     {
       icon: <UsersIcon className="h-6 w-6" />,
-      title: "Customer Base (Building)",
-      description: "Growing waitlist and early adopters showing high retention potential",
-      trend: "Building"
+      title: 'Mission',
+      description:
+        'To design and deliver products that consistently exceed expectations with service that earns lifelong trust.'
     },
     {
       icon: <GlobeAmericasIcon className="h-6 w-6" />,
-      title: "Market Expansion (Planned)",
-      description: "Launching across key regions before scaling globally",
-      trend: "Planned"
+      title: 'Vision',
+      description:
+        'To become the most loved, responsible, and forward-thinking brand in our category.'
     },
     {
       icon: <DevicePhoneMobileIcon className="h-6 w-6" />,
-      title: "Digital Presence (Scaling)",
-      description: "Focus on mobile-first experience and community engagement",
-      trend: "Scaling"
+      title: 'Premium Quality',
+      description:
+        'Materials, craftsmanship, and QC processes that meet stringent standards for durability and comfort.'
     }
-  ];
-
-  const monthlyData = [
-    { month: 'Jan', sales: 45000, customers: 1200 },
-    { month: 'Feb', sales: 52000, customers: 1350 },
-    { month: 'Mar', sales: 48000, customers: 1280 },
-    { month: 'Apr', sales: 67000, customers: 1650 },
-    { month: 'May', sales: 71000, customers: 1780 },
-    { month: 'Jun', sales: 85000, customers: 2100 },
   ];
 
   return (
@@ -72,16 +55,16 @@ const Analysis = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl font-bold text-white mb-6">
-              Market Analysis & Insights
+              New Initiative
             </h1>
             <p className="text-xl text-white/90">
-              Our strategy is built on research-driven insights, identifying opportunities, customer needs, and market trends that shape our growth path.
+              Overview, Mission, Vision, and our uncompromising commitment to Premium Quality.
             </p>
           </motion.div>
         </div>
       </section>
 
-      {/* Key Metrics */}
+      {/* Highlights */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -92,15 +75,15 @@ const Analysis = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Key Focus Areas
+              Initiative at a Glance
             </h2>
             <p className="text-xl text-muted-foreground">
-              Early-stage metrics and goals defining our direction
+              The pillars guiding our next chapter
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {marketData.map((data, index) => (
+            {initiativeHighlights.map((data, index) => (
               <motion.div
                 key={data.metric}
                 initial={{ opacity: 0, y: 30 }}
@@ -137,7 +120,7 @@ const Analysis = () => {
         </div>
       </section>
 
-      {/* Market Insights */}
+      {/* Sections */}
       <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -148,15 +131,15 @@ const Analysis = () => {
             className="text-center mb-16"
           >
             <h2 className="text-4xl font-bold text-foreground mb-4">
-              Market Insights
+              Mission, Vision & Quality
             </h2>
             <p className="text-xl text-muted-foreground">
-              Strategic analysis of market trends and opportunities
+              What we stand for and what we deliver
             </p>
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {insights.map((insight, index) => (
+            {initiativeSections.map((insight, index) => (
               <motion.div
                 key={insight.title}
                 initial={{ opacity: 0, y: 30 }}
@@ -174,9 +157,6 @@ const Analysis = () => {
                       <h3 className="text-xl font-semibold text-foreground">
                         {insight.title}
                       </h3>
-                      <span className="text-sm font-bold text-secondary">
-                        {insight.trend}
-                      </span>
                     </div>
                     <p className="text-muted-foreground">
                       {insight.description}
@@ -186,59 +166,6 @@ const Analysis = () => {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Our Roadmap Insights */}
-      <section className="py-20 hero-gradient">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-          >
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Our Roadmap Insights
-            </h2>
-            <p className="text-xl text-white/90 mb-8">
-              Strategic milestones paving the way for launch and growth
-            </p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
-                <div className="text-lg font-semibold text-secondary mb-2">
-                  Sales Growth (Projected)
-                </div>
-                <div className="text-white/90">
-                  Anticipated strong adoption in initial launch markets
-                </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
-                <div className="text-lg font-semibold text-secondary mb-2">
-                  Customer Base (Building)
-                </div>
-                <div className="text-white/90">
-                  Growing waitlist and early adopters showing high retention potential
-                </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
-                <div className="text-lg font-semibold text-secondary mb-2">
-                  Market Expansion (Planned)
-                </div>
-                <div className="text-white/90">
-                  Launching across key regions before scaling globally
-                </div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-md rounded-xl p-6">
-                <div className="text-lg font-semibold text-secondary mb-2">
-                  Digital Presence (Scaling)
-                </div>
-                <div className="text-white/90">
-                  Focus on mobile-first experience and community engagement
-                </div>
-              </div>
-            </div>
-          </motion.div>
         </div>
       </section>
     </div>

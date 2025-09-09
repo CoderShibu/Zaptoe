@@ -4,15 +4,14 @@ import { Button } from '@/components/ui/button';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import heroShoes from '@/assets/hero-shoes.jpg';
 import { useCart } from '@/components/cart/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const Shop = () => {
   const categories = [
-    { name: "Athletic", count: "120+ Styles", image: "🏃‍♂️" },
-    { name: "Casual", count: "85+ Styles", image: "👟" },
-    { name: "Formal", count: "60+ Styles", image: "👞" },
-    { name: "Running", count: "95+ Styles", image: "🏃‍♀️" },
-    { name: "Lifestyle", count: "70+ Styles", image: "👟" },
-    { name: "Business", count: "45+ Styles", image: "👔" }
+    { name: "Male", count: "150+ Styles", image: "👨‍💼" },
+    { name: "Female", count: "120+ Styles", image: "👩‍💼" },
+    { name: "Unisex", count: "80+ Styles", image: "👥" },
+    { name: "Kids", count: "60+ Styles", image: "👶" }
   ];
 
   const featuredProducts = [
@@ -23,6 +22,11 @@ const Shop = () => {
   ];
 
   const { addItem, openCart } = useCart();
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryName: string) => {
+    navigate(`/shop?category=${categoryName.toLowerCase()}`);
+  };
 
   return (
     <div className="min-h-screen pt-16">
@@ -62,7 +66,7 @@ const Shop = () => {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {categories.map((category, index) => (
               <motion.div
                 key={category.name}
@@ -71,13 +75,21 @@ const Shop = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-card rounded-2xl p-8 shadow-card hover:shadow-premium transition-smooth cursor-pointer group"
+                onClick={() => handleCategoryClick(category.name)}
               >
                 <div className="text-4xl mb-4">{category.image}</div>
                 <h3 className="text-2xl font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {category.name}
                 </h3>
                 <p className="text-muted-foreground mb-4">{category.count}</p>
-                <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground">
+                <Button 
+                  variant="outline" 
+                  className="w-full group-hover:bg-primary group-hover:text-primary-foreground"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCategoryClick(category.name);
+                  }}
+                >
                   Browse {category.name}
                   <ArrowRightIcon className="ml-2 h-4 w-4" />
                 </Button>
